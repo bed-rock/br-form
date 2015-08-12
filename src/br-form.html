@@ -5,12 +5,44 @@
 <link rel="import" type="css" href="../dist/css/br-form.css">
 
 <template>
-  
+  <form>
+    <fieldset name="personalInfo">
+      <label for="email">Email</label>
+      <input type="email" id="email" 
+             placeholder="email@site.com">
+    </fieldset>
+
+    <fieldset name="cardInfo">
+      <label for="cardNum" required>Card Number</label>
+      <input type="tel" id="cardNum" 
+             placeholder="0000 0000 0000 0000">
+
+      <label for="cardExp" required>Expires</label>
+      <input type="tel" id="cardExp" placeholder="MM/YY">  
+
+      <label for="cardCVC" required>CVC</label>
+      <input type="tel" id="cardCVC" placeholder="***">
+    </fieldset>
+
+    <input type="submit" class="disabled" value="Donate">
+  </form>
 </template>
 
 <script>
   Polymer({
     is: 'br-form',
+
+    properties: {
+    //  amount: String
+    },
+    ready: function(){
+
+     
+       // if (amount !== null){
+      //    this.$.amount.classList.remove('disabled');
+      //  }
+
+    }
 
   });
 </script>
