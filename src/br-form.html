@@ -1,31 +1,18 @@
 <link rel="import" type="html" href="../../polymer/polymer.html">
 <link rel="import" type="html" href="../../br-button/src/br-button.html">
+<link rel="import" type="html" href="../../br-input/src/br-input.html">
+
 
 <dom-module id="br-form">
 <link rel="import" type="css" href="../dist/css/br-form.css">
 
 <template>
-  <form>
-    <fieldset name="personalInfo">
-      <label for="email">Email</label>
-      <input type="email" id="email" 
-             placeholder="email@site.com">
-    </fieldset>
-
-    <fieldset name="cardInfo">
-      <label for="cardNum" required>Card Number</label>
-      <input type="tel" id="cardNum" 
-             placeholder="0000 0000 0000 0000">
-
-      <label for="cardExp" required>Expires</label>
-      <input type="tel" id="cardExp" placeholder="MM/YY">  
-
-      <label for="cardCVC" required>CVC</label>
-      <input type="tel" id="cardCVC" placeholder="***">
-    </fieldset>
-
-    <input type="submit" class="disabled" value="Donate">
+  <form action="{{action}}" autocomplete="{{autocomplete}}" method="{{method}}" on-keypress="_checkValidity">
+  
+    <content></content>
+    
   </form>
+
 </template>
 
 <script>
@@ -33,17 +20,27 @@
     is: 'br-form',
 
     properties: {
-    //  amount: String
+      action: String,
+      autocomplete: String,
+      method: String
     },
-    ready: function(){
-
-     
-       // if (amount !== null){
-      //    this.$.amount.classList.remove('disabled');
-      //  }
-
+    _checkValidity: function (argument) {
+      allBrInputElements = document.getElementsByTagName('br-input');
+      allTrue = false;
+      isSomeoneFalse = false;
+      for (var i = 0; i < allBrInputElements.length; i++) {
+        if (allBrInputElements[i].isValid == 'true') {
+          allTrue = true
+        } else{
+          isSomeoneFalse = true;
+        }
+      };
+      if (isSomeoneFalse == false && allTrue == true) {
+        var buttonSubmit = document.querySelector('br-button');
+        buttonSubmit.removeAttribute('disabled');
+        console.log('HABILITOU O BOTAO JOVEM');
+      };
     }
-
   });
 </script>
 
