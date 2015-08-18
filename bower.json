@@ -1,17 +1,17 @@
 {
-  "name": "br-modal",
-  "version": "0.0.1",
+  "name": "br-form",
+  "version": "1.0.0",
   "authors": [
     "cbfranca <cleidsonbf@gmail.com>",
     "marcelo-ribeiro <marceloribeiromidia@gmail.com>"
   ],
-  "description": "Modal built with polymer",
-  "main": "br-modal.html",
+  "description": "a form  wrapper  built with polymer to use with br-input",
+  "main": "br-form.html",
   "keywords": [
     "webcomponents",
     "polymer",
     "bedrock",
-    "modal"
+    "forms"
   ],
   "license": "MIT",
   "ignore": [
@@ -22,6 +22,8 @@
     "tests"
   ],
    "dependencies": {
-    "bedrock-base": "*"
+    "bedrock-base": "~1.0.0",
+    "br-button": "~1.0.0",
+    "br-input": "~1.0.0"
   }
 }
