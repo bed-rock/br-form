@@ -17,7 +17,6 @@ bower_components
 # Grunt usually preprocesses files such as coffeescript, compass... inside the .tmp directory
 .tmp/
 
-
 ### SublimeText ###
 # cache files for sublime text
 *.tmlanguage.cache
