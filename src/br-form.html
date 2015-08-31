@@ -7,9 +7,9 @@
 
 <template>
   <form action="{{action}}" autocomplete="{{autocomplete}}" method="{{method}}" on-keyup="_checkValidity">
-  
+
     <content></content>
-    
+
   </form>
 
 </template>
@@ -25,7 +25,6 @@
     },
     _checkValidity: function () {
       allBrInputElements = document.getElementsByTagName('br-input');
-      console.log(allBrInputElements);
       allTrue = false;
       isSomeoneFalse = false;
       for (var i = 0; i < allBrInputElements.length; i++) {
@@ -36,7 +35,6 @@
         }
       };
       if (isSomeoneFalse == false && allTrue == true) {
-        console.log("tendo certeza q estou vindo aqui")
         var buttonSubmit = document.querySelector('br-button');
         buttonSubmit.removeAttribute('disabled');
       };
