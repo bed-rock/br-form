@@ -3,7 +3,7 @@
 <dom-module id="br-form">
 
 <template>
-  <form action="{{action}}" autocomplete="{{autocomplete}}" method="{{method}}" on-keyup="_checkValidity">
+  <form method="post" on-input="_checkValidity" novalidate>
 
     <content></content>
 
@@ -16,25 +16,50 @@
     is: 'br-form',
 
     properties: {
-      action: String,
-      autocomplete: String,
-      method: String
+      buttonId: String,
+      allBrInputElements: {
+        type: Array,
+        value: [],
+        readOnly: true
+      },
+      inputCount: Number
+
     },
+
+    ready: function(){
+      var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
+
+      buttonSubmit.setAttribute('disabled', true);
+
+      this._setAllBrInputElements(Polymer.dom(this).querySelectorAll('br-input'));
+      this.inputCount = this.allBrInputElements.length;
+      
+    },
+
     _checkValidity: function () {
-      allBrInputElements = Polymer.dom(this).querySelectorAll('br-input');
-      allTrue = false;
-      isSomeoneFalse = false;
-      for (var i = 0; i < allBrInputElements.length; i++) {
-        if (allBrInputElements[i].isValid == true) {
-          allTrue = true
-        } else{
-          isSomeoneFalse = true;
-        }
-      };
-      if (isSomeoneFalse == false && allTrue == true) {
-        var buttonSubmit = document.querySelector('br-button');
+      
+      var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
+      var count = 0;
+      
+      for (var i = 0; i < this.allBrInputElements.length; i++) {
+
+        if (this.allBrInputElements[i].isValid === "true")
+          count++;
+      }
+
+      console.log('Count is: ' + count +  ' Input Count is: ' + this.inputCount);
+
+      if(count === this.inputCount){
+        console.log('dasd');
+        buttonSubmit.enable();
         buttonSubmit.removeAttribute('disabled');
-      };
+      }
+      else{
+        buttonSubmit.disable();
+        buttonSubmit.setAttribute('disabled', 'disabled');
+      }
+
+
     }
   });
 </script>
