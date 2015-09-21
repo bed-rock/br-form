@@ -27,7 +27,7 @@
     ready: function(){
       var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
 
-      buttonSubmit.setAttribute('disabled', true);
+      buttonSubmit.setAttribute('is-disabled', true);
 
       this._setAllBrInputElements(Polymer.dom(this).querySelectorAll('br-input'));
       this.inputCount = this.allBrInputElements.length;
@@ -41,17 +41,21 @@
       
       for (var i = 0; i < this.allBrInputElements.length; i++) {
 
-        if (this.allBrInputElements[i].isValid === "true")
+        console.log(this.allBrInputElements[i].isValidForm);
+        if (this.allBrInputElements[i].isValidForm){
           count++;
+        }
       }
+      
+      console.log(this.inputCount + ' / ' + count);
 
       if(count === this.inputCount){
         buttonSubmit.enable();
-        buttonSubmit.removeAttribute('disabled');
+        buttonSubmit.removeAttribute('is-disabled');
       }
       else{
         buttonSubmit.disable();
-        buttonSubmit.setAttribute('disabled', 'disabled');
+        buttonSubmit.setAttribute('is-disabled', true);
       }
 
 
