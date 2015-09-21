@@ -40,14 +40,11 @@
       var count = 0;
       
       for (var i = 0; i < this.allBrInputElements.length; i++) {
-
-        console.log(this.allBrInputElements[i].isValidForm);
-        if (this.allBrInputElements[i].isValidForm){
+        
+        if (this.allBrInputElements[i].isValidForm)
           count++;
-        }
-      }
-      
-      console.log(this.inputCount + ' / ' + count);
+        
+      }     
 
       if(count === this.inputCount){
         buttonSubmit.enable();
