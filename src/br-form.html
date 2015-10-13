@@ -1,63 +1,55 @@
 <dom-module id="br-form">
+  <template>
+    <form method="post" on-input="_checkValidity" novalidate>
+      <content></content>
+    </form>
+  </template>
+  <script>
+    Polymer( {
+      is: 'br-form',
 
-<template>
-  <form method="post" on-input="_checkValidity" novalidate>
-
-    <content></content>
-
-  </form>
-
-</template>
-
-<script>
-  Polymer({
-    is: 'br-form',
-
-    properties: {
-      buttonId: String,
-      allBrInputElements: {
-        type: Array,
-        value: [],
-        readOnly: true
+      properties: {
+        buttonId: String,
+        allBrInputElements: {
+          type: Array,
+          value: [],
+          readOnly: true
+        },
+        inputCount: Number
       },
-      inputCount: Number
 
-    },
+      ready: function () {
+        var buttonSubmit = Polymer.dom( this ).querySelector( "#" + this.buttonId );
 
-    ready: function(){
-      var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
+        buttonSubmit.setAttribute( 'is-disabled', true );
 
-      buttonSubmit.setAttribute('is-disabled', true);
+        this._setAllBrInputElements( Polymer.dom( this ).querySelectorAll( 'br-input' ) );
+        this.inputCount = this.allBrInputElements.length;
+      },
 
-      this._setAllBrInputElements(Polymer.dom(this).querySelectorAll('br-input'));
-      this.inputCount = this.allBrInputElements.length;
-      
-    },
+      attached: function () {
+        this.async( function () {
+          this._checkValidity();
+        } );
+      },
 
-    _checkValidity: function () {
-      
-      var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
-      var count = 0;
-      
-      for (var i = 0; i < this.allBrInputElements.length; i++) {
-        
-        if (this.allBrInputElements[i].isValidForm)
-          count++;
-        
-      }     
+      _checkValidity: function () {
+        var buttonSubmit = Polymer.dom( this ).querySelector( "#" + this.buttonId );
+        var count = 0;
 
-      if(count === this.inputCount){
-        buttonSubmit.enable();
-        buttonSubmit.removeAttribute('is-disabled');
-      }
-      else{
-        buttonSubmit.disable();
-        buttonSubmit.setAttribute('is-disabled', true);
+        for ( var i = 0; i < this.allBrInputElements.length; i++ ) {
+          if ( this.allBrInputElements[i].isValidForm )
+            count++;
+        }
+
+        if ( count === this.inputCount ) {
+          buttonSubmit.removeAttribute( 'is-disabled' );
+        }
+        else {
+          buttonSubmit.setAttribute( 'is-disabled', true );
+        }
       }
 
-
-    }
-  });
-</script>
-
+    } );
+  </script>
 </dom-module>
