@@ -27,12 +27,6 @@
         this.inputCount = this.allBrInputElements.length;
       },
 
-      attached: function () {
-        this.async( function () {
-          this._checkValidity();
-        } );
-      },
-
       _checkValidity: function () {
         var buttonSubmit = Polymer.dom( this ).querySelector( "#" + this.buttonId );
         var count = 0;
