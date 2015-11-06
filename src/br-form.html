@@ -31,6 +31,10 @@
         this.allInputElements = form.querySelectorAll('br-input,br-select,br-radio-button,br-checkbox');
 
         this.inputCount = this.allInputElements.length;
+
+        this.async(function(){
+          this._checkValidity();
+        },1);
       },      
 
       _checkValidity: function () {
