@@ -24,7 +24,7 @@
 
         var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
 
-        buttonSubmit.setAttribute('is-disabled', true);
+        buttonSubmit.setAttribute('disabled', true);
 
         var form = Polymer.dom(this.root).querySelector("#" + this.brId);
 
@@ -42,16 +42,15 @@
         var count = 0;
 
         for (var i = 0; i < this.allInputElements.length; i++) {
-          console.log(this.allInputElements[i].isValidForm);
           if (this.allInputElements[i].isValidForm)
             count++;
         }
 
         if (count === this.inputCount) {
-          buttonSubmit.removeAttribute('is-disabled');
+          buttonSubmit.removeAttribute('disabled');
         }
         else {
-          buttonSubmit.setAttribute('is-disabled', true);
+          buttonSubmit.setAttribute('disabled', true);
         }
       }
 
