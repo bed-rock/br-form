@@ -1,6 +1,6 @@
 <dom-module id="br-form">
   <template>
-    <form method="post" id$="{{brId}}" on-input="_checkValidity" on-click="_checkValidity" novalidate>
+    <form method="post" id$="{{brId}}" novalidate>
       <content></content>
     </form>
   </template>
@@ -15,7 +15,11 @@
       },
 
       listeners: {
-        'on-item-selected': '_checkValidity'
+        'on-br-select-selected': '_checkValidity',
+        'on-radio-button-selected': '_checkValidity',
+        'on-checkbox-grouped-checked': '_checkValidity',
+        'on-checkbox-checked': '_checkValidity',
+        'on-br-input-bind': '_checkValidity'
       },
 
       ready: function () {
@@ -28,30 +32,157 @@
 
         var form = Polymer.dom(this.root).querySelector("#" + this.brId);
 
-        this.allInputElements = form.querySelectorAll('br-input,br-select,br-radio-button,br-checkbox');
-
         this.inputCount = this.allInputElements.length;
 
-        this.async(function(){
+        this.async(function () {
           this._checkValidity();
-        },1);
-      },      
+        }, 1);
+      },
 
       _checkValidity: function () {
+
         var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
-        var count = 0;
-
-        for (var i = 0; i < this.allInputElements.length; i++) {
-          if (this.allInputElements[i].isValidForm)
-            count++;
-        }
-
-        if (count === this.inputCount) {
+        
+        if (this._isAllRadioGroupsValid()
+            && this._isAllInputsValid()
+            && this._isAllCheckboxGroupedValid()
+            && this._isAllCheckboxValid()
+            && this._isAllSelectsValid())
           buttonSubmit.removeAttribute('disabled');
-        }
-        else {
+        else
           buttonSubmit.setAttribute('disabled', true);
+
+      },
+
+      _isAllRadioGroupsValid: function () {
+
+        var form = Polymer.dom(this.root).querySelector("#" + this.brId);
+        var radioGroupElements = form.querySelectorAll('br-radio-group');
+        var isValid = false;
+
+        //Convet to NodeList to array
+        radioGroupElements = Array.prototype.slice.call(radioGroupElements);
+
+        if (radioGroupElements && radioGroupElements.length > 0) {
+          for (var i = 0; i < radioGroupElements.length; i++) {
+
+            for (var j = 0; j < radioGroupElements[i].children.length; j++) {
+
+              if (radioGroupElements[i].children[j].model === "") {
+                isValid = false;
+                break;
+              }
+              else
+                isValid = true;
+            }
+          }
+          return isValid;
         }
+        else
+          return true;
+      },
+
+      _isAllInputsValid: function () {
+
+        var form = Polymer.dom(this.root).querySelector("#" + this.brId);
+        var allInputElements = form.querySelectorAll('br-input');
+        var isValid = false;
+
+        if (allInputElements && allInputElements.length > 0) {
+
+          for (var i = 0; i < allInputElements.length; i++) {
+
+            if (!allInputElements[i].isValidForm) {
+              isValid = false;
+              break;
+            }
+            else
+              isValid = true;
+          }
+          return isValid;
+        }
+        else
+          return true;
+
+      },
+
+      _isAllCheckboxGroupedValid: function () {
+
+        var form = Polymer.dom(this.root).querySelector("#" + this.brId);
+        var checkboxGroupElements = form.querySelectorAll('br-checkbox-group');
+        var isValid = false;
+
+        //Convet to NodeList to array
+        checkboxGroupElements = Array.prototype.slice.call(checkboxGroupElements);
+
+        if (checkboxGroupElements && checkboxGroupElements.length > 0) {
+          for (var i = 0; i < checkboxGroupElements.length; i++) {
+
+            for (var j = 0; j < checkboxGroupElements[i].children.length; j++) {
+
+              if (checkboxGroupElements[i].children[j].isValidForm) {
+                isValid = true;
+                break;
+              }
+              else
+                isValid = false;
+            }
+          }
+          return isValid;
+        }
+        else
+          return true;
+
+      },
+
+      _isAllCheckboxValid: function () {
+
+        var form = Polymer.dom(this.root).querySelector("#" + this.brId);
+        var checkboxElements = form.querySelectorAll('br-checkbox');
+        var isValid = false;
+
+        //Convet to NodeList to array
+        checkboxElements = Array.prototype.slice.call(checkboxElements);
+
+        if (checkboxElements && checkboxElements.length > 0) {
+
+          for (var i = 0; i < checkboxElements.length; i++) {
+
+            if (!checkboxElements[i].isValidForm) {
+              isValid = false;
+              break;
+            }
+            else
+              isValid = true;
+          }
+          return isValid;
+        }
+        else
+          return true;
+
+      },
+
+      _isAllSelectsValid: function () {
+
+        var form = Polymer.dom(this.root).querySelector("#" + this.brId);
+        var allSelectElements = form.querySelectorAll('br-select');
+        var isValid = false;
+        
+        if (allSelectElements && allSelectElements.length > 0) {
+
+          for (var i = 0; i < allSelectElements.length; i++) {
+            if (!allSelectElements[i].isValidForm) {
+              isValid = false;
+              break;
+            }
+            else
+              isValid = true;
+          }
+          return isValid;
+        }
+        else
+          return true;
+
       }
 
     });
