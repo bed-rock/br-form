@@ -67,6 +67,11 @@
         if (radioGroupElements && radioGroupElements.length > 0) {
           for (var i = 0; i < radioGroupElements.length; i++) {
 
+            if (!radioGroupElements[i].required){
+                isValid = true;
+                continue;
+              }
+
             for (var j = 0; j < radioGroupElements[i].children.length; j++) {
 
               if (radioGroupElements[i].children[j].model === "") {
