@@ -18,7 +18,6 @@
         'on-br-select-selected': '_checkValidity',
         'on-radio-button-selected': '_checkValidity',
         'on-checkbox-grouped-checked': '_checkValidity',
-        'on-checkbox-checked': '_checkValidity',
         'on-br-input-bind': '_checkValidity'
       },
 
@@ -43,11 +42,13 @@
 
         var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
         
+       // console.log(this._isAllSelectsValid());
+
         if (this._isAllRadioGroupsValid()
             && this._isAllInputsValid()
             && this._isAllCheckboxGroupedValid()
-            && this._isAllCheckboxValid()
-            && this._isAllSelectsValid())
+            && this._isAllSelectsValid()
+          )
           buttonSubmit.removeAttribute('disabled');
         else
           buttonSubmit.setAttribute('disabled', true);
@@ -134,40 +135,13 @@
           return true;
 
       },
-
-      _isAllCheckboxValid: function () {
-
-        var form = Polymer.dom(this.root).querySelector("#" + this.brId);
-        var checkboxElements = form.querySelectorAll('br-checkbox');
-        var isValid = false;
-
-        //Convet to NodeList to array
-        checkboxElements = Array.prototype.slice.call(checkboxElements);
-
-        if (checkboxElements && checkboxElements.length > 0) {
-
-          for (var i = 0; i < checkboxElements.length; i++) {
-
-            if (!checkboxElements[i].isValidForm) {
-              isValid = false;
-              break;
-            }
-            else
-              isValid = true;
-          }
-          return isValid;
-        }
-        else
-          return true;
-
-      },
-
+   
       _isAllSelectsValid: function () {
 
         var form = Polymer.dom(this.root).querySelector("#" + this.brId);
         var allSelectElements = form.querySelectorAll('br-select');
         var isValid = false;
-        
+
         if (allSelectElements && allSelectElements.length > 0) {
 
           for (var i = 0; i < allSelectElements.length; i++) {
