@@ -1,65 +1,65 @@
 <dom-module id="br-form">
-  <template>
-    <form method="post" id$="{{brId}}" novalidate>
-      <content></content>
-    </form>
-  </template>
-  <script>
-    Polymer({
-      is: 'br-form',
+<template>
+  <form method="post" id$="{{brId}}" novalidate>
+    <content></content>
+  </form>
+</template>
+<script>
+  Polymer({
+    is: 'br-form',
 
-      properties: {
-        buttonId: String,
-        inputCount: Number,
-        brId: String
-      },
+    properties: {
+      buttonId: String,
+      inputCount: Number,
+      brId: String
+    },
 
-      listeners: {
-        'on-br-select-selected': '_checkValidity',
-        'on-radio-button-selected': '_checkValidity',
-        'on-checkbox-grouped-checked': '_checkValidity',
-        'on-br-input-bind': '_checkValidity'
-      },
+    listeners: {
+      'on-br-select-selected': '_checkValidity',
+      'on-radio-button-selected': '_checkValidity',
+      'on-checkbox-grouped-checked': '_checkValidity',
+      'on-br-input-bind': '_checkValidity'
+    },
 
-      ready: function () {
+    ready: function () {
 
-        this.allInputElements = [];
+      this.allInputElements = [];
 
-        var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
+      var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
 
-        buttonSubmit.setAttribute('disabled', true);
+      buttonSubmit.setAttribute('disabled', true);
 
-        var form = Polymer.dom(this.root).querySelector("#" + this.brId);
+      var form = Polymer.dom(this.root).querySelector("#" + this.brId);
 
-        this.inputCount = this.allInputElements.length;
+      this.inputCount = this.allInputElements.length;
 
-        this.async(function () {
-          this._checkValidity();
-        }, 1);
-      },
+      this.async(function () {
+        this._checkValidity();
+      }, 1);
+    },
 
-      _checkValidity: function () {
+    _checkValidity: function () {
 
-        var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
-        
+      var buttonSubmit = Polymer.dom(this).querySelector("#" + this.buttonId);
+
        // console.log(this._isAllSelectsValid());
 
-        if (this._isAllRadioGroupsValid()
-            && this._isAllInputsValid()
-            && this._isAllCheckboxGroupedValid()
-            && this._isAllSelectsValid()
-          )
-          buttonSubmit.removeAttribute('disabled');
-        else
-          buttonSubmit.setAttribute('disabled', true);
+       if (this._isAllRadioGroupsValid()
+        && this._isAllInputsValid()
+        && this._isAllCheckboxGroupedValid()
+        && this._isAllSelectsValid()
+        )
+        buttonSubmit.removeAttribute('disabled');
+      else
+        buttonSubmit.setAttribute('disabled', true);
 
-      },
+    },
 
-      _isAllRadioGroupsValid: function () {
+    _isAllRadioGroupsValid: function () {
 
-        var form = Polymer.dom(this.root).querySelector("#" + this.brId);
-        var radioGroupElements = form.querySelectorAll('br-radio-group');
-        var isValid = false;
+      var form = Polymer.dom(this.root).querySelector("#" + this.brId);
+      var radioGroupElements = form.querySelectorAll('br-radio-group');
+      var isValid = false;
 
         //Convet to NodeList to array
         radioGroupElements = Array.prototype.slice.call(radioGroupElements);
@@ -67,10 +67,10 @@
         if (radioGroupElements && radioGroupElements.length > 0) {
           for (var i = 0; i < radioGroupElements.length; i++) {
 
-            if (!radioGroupElements[i].required){
-                isValid = true;
-                continue;
-              }
+            if (!radioGroupElements[i].children[0].required) {
+              isValid = true;
+              continue;
+            }
 
             for (var j = 0; j < radioGroupElements[i].children.length; j++) {
 
@@ -140,7 +140,7 @@
           return true;
 
       },
-   
+
       _isAllSelectsValid: function () {
 
         var form = Polymer.dom(this.root).querySelector("#" + this.brId);
@@ -165,5 +165,5 @@
       }
 
     });
-  </script>
+</script>
 </dom-module>
