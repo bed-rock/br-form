@@ -10,7 +10,11 @@
 
       properties: {
         buttonId: String,
-        brId: String
+        brId: String,
+        disabled: {
+          type: Boolean,
+          observer: '_onDisabled'
+        }
       },
 
       listeners: {
@@ -28,7 +32,6 @@
         this.submitButton.setAttribute( 'disabled', true );
 
         this.form = Polymer.dom( this.root ).querySelector( "#" + this.brId );
-
       },
 
 
@@ -153,8 +156,51 @@
         else
           return true;
 
-      }
+      },
 
+      _onDisabled: function () {
+
+          var allBrInput = this.form.querySelectorAll('br-input');
+          console.log(allBrInput);
+
+          var allBrSelect = this.form.querySelectorAll('br-select');
+          var allBrCheckbox = this.form.querySelectorAll('br-checkbox');
+          var allBrRadio = this.form.querySelectorAll('br-radio-button');
+          var allBrCheckboxGroup = this.form.querySelectorAll('br-checkbox-group');
+          var allBrRadioGroup = this.form.querySelectorAll('br-radio');
+
+
+          if ( allBrInput && allBrInput.length > 0 ) {
+            for ( var i = 0; i < allBrInput.length; i++ ) {
+              allBrInput[i].setAttribute("disabled", "disabled");
+            }
+          }
+          if ( allBrSelect && allBrSelect.length > 0 ) {
+            for ( var i = 0; i < allBrSelect.length; i++ ) {
+              allBrSelect[i].setAttribute("disabled", "disabled");
+            }
+          }
+          if ( allBrCheckbox && allBrCheckbox.length > 0 ) {
+            for ( var i = 0; i < allBrCheckbox.length; i++ ) {
+              allBrCheckbox[i].setAttribute("disabled", "disabled");
+            }
+          }
+          if ( allBrRadio && allBrRadio.length > 0 ) {
+            for ( var i = 0; i < allBrRadio.length; i++ ) {
+              allBrRadio[i].setAttribute("disabled", "disabled");
+            }
+          }
+          if ( allBrCheckboxGroup && allBrCheckboxGroup.length > 0 ) {
+            for ( var i = 0; i < allBrCheckboxGroup.length; i++ ) {
+              allBrCheckboxGroup[i].setAttribute("disabled", "disabled");
+            }
+          }
+          if ( allBrRadioGroup && allBrRadioGroup.length > 0 ) {
+            for ( var i = 0; i < allBrRadioGroup.length; i++ ) {
+              allBrRadioGroup[i].setAttribute("disabled", "disabled");
+            }
+          }
+      }
 
     } );
   </script>
