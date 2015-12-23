@@ -158,11 +158,10 @@
 
       },
 
+
       _onDisabled: function () {
 
           var allBrInput = this.form.querySelectorAll('br-input');
-          console.log(allBrInput);
-
           var allBrSelect = this.form.querySelectorAll('br-select');
           var allBrCheckbox = this.form.querySelectorAll('br-checkbox');
           var allBrRadio = this.form.querySelectorAll('br-radio-button');
@@ -172,32 +171,50 @@
 
           if ( allBrInput && allBrInput.length > 0 ) {
             for ( var i = 0; i < allBrInput.length; i++ ) {
-              allBrInput[i].setAttribute("disabled", "disabled");
+              if ( this.disabled )
+                allBrInput[i].setAttribute( "disabled", "disabled" );
+              else
+                allBrInput[i].removeAttribute( "disabled" );
             }
           }
           if ( allBrSelect && allBrSelect.length > 0 ) {
             for ( var i = 0; i < allBrSelect.length; i++ ) {
-              allBrSelect[i].setAttribute("disabled", "disabled");
+              if ( this.disabled )
+                allBrSelect[i].setAttribute( "disabled", "disabled" );
+              else
+                allBrSelect[i].removeAttribute( "disabled" );
             }
           }
           if ( allBrCheckbox && allBrCheckbox.length > 0 ) {
             for ( var i = 0; i < allBrCheckbox.length; i++ ) {
-              allBrCheckbox[i].setAttribute("disabled", "disabled");
+              if ( this.disabled )
+                allBrCheckbox[i].setAttribute( "disabled", "disabled" );
+              else
+                allBrCheckbox[i].removeAttribute( "disabled" );
             }
           }
           if ( allBrRadio && allBrRadio.length > 0 ) {
             for ( var i = 0; i < allBrRadio.length; i++ ) {
-              allBrRadio[i].setAttribute("disabled", "disabled");
+              if ( this.disabled )
+                allBrRadio[i].setAttribute( "disabled", "disabled" );
+              else
+                allBrRadio[i].removeAttribute( "disabled" );
             }
           }
           if ( allBrCheckboxGroup && allBrCheckboxGroup.length > 0 ) {
             for ( var i = 0; i < allBrCheckboxGroup.length; i++ ) {
-              allBrCheckboxGroup[i].setAttribute("disabled", "disabled");
+              if ( this.disabled )
+                allBrCheckboxGroup[i].setAttribute( "disabled", "disabled" );
+              else
+                allBrCheckboxGroup[i].removeAttribute( "disabled" );
             }
           }
           if ( allBrRadioGroup && allBrRadioGroup.length > 0 ) {
             for ( var i = 0; i < allBrRadioGroup.length; i++ ) {
-              allBrRadioGroup[i].setAttribute("disabled", "disabled");
+              if ( this.disabled )
+                allBrRadioGroup[i].setAttribute( "disabled", "disabled" );
+              else
+                allBrRadioGroup[i].removeAttribute( "disabled" );
             }
           }
       }
