@@ -52,7 +52,6 @@
 
       _isAllRadioGroupsValid: function () {
 
-        //var form = Polymer.dom( this.root ).querySelector( "#" + this.brId );
         var radioGroupElements = this.form.querySelectorAll( 'br-radio-group' );
         var isValid = false;
 
@@ -137,8 +136,7 @@
 
       _isAllSelectsValid: function () {
 
-        //var form = Polymer.dom( this.root ).querySelector( "#" + this.brId );
-        var allSelectElements = this.form.querySelectorAll( 'br-select' );
+        var allSelectElements = this.form.querySelectorAll( 'br-select[required]' );
         var isValid = false;
 
         if ( allSelectElements && allSelectElements.length > 0 ) {
