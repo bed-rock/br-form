@@ -215,7 +215,18 @@
                 allBrRadioGroup[i].removeAttribute( "disabled" );
             }
           }
-      }
+      },
+
+      reset: function () {
+       var allInputElements = this.form.querySelectorAll('br-input');
+
+       if (allInputElements && allInputElements.length > 0) {
+
+         for (var i = 0; i < allInputElements.length; i++)
+           allInputElements[i].reset();
+       }
+
+     }
 
     } );
   </script>
